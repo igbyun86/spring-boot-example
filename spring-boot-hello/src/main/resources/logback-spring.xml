@@ -1,0 +1,33 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Spring Environment에 저장된 properties 값을 사용할수 있다. -->
+    <!--
+    <springProperty scope="context" name="fluentHost" source="myapp.fluentd.host"
+                    defaultValue="localhost"/>
+    <appender name="FLUENT" class="ch.qos.logback.more.appenders.DataFluentAppender">
+        <remoteHost>${fluentHost}</remoteHost>
+        ...
+    </appender>
+    -->
+
+    <springProfile name="dev | staging">
+        <logger name="org.springframework.boot" level="WARN" />
+        <logger name="org.springframework.web" level="DEBUG" />
+    </springProfile>
+
+    <springProfile name="prod">
+        <logger name="org.springframework.boot" level="ERROR" />
+        <logger name="org.springframework.web" level="ERROR" />
+    </springProfile>
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
