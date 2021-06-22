@@ -20,12 +20,17 @@ public class SampleRunner implements ApplicationRunner {
     @Autowired
     IgProperties igProperties;
 
+    @Autowired
+    String hello;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         System.out.println("==================");
         System.out.println(igProperties.getName());
         System.out.println(igProperties.getAge());
         System.out.println(igProperties.getSessionTimeout());
+        System.out.println(hello);
+        System.out.println(igProperties.getFullName());
         System.out.println("==================");
     }
 }
